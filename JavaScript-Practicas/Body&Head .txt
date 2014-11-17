@@ -1,0 +1,13 @@
+JavaScript en <head> o <body>
+
+Usted puede colocar cualquier número de secuencias de comandos en un documento HTML.
+
+Los scripts pueden ser colocados en el <body> o en el <head> de HTML, y / o en ambos.
+
+A menudo verá secuencias de comandos en la parte inferior de la sección <body> de una página web.
+Esto puede reducir el tiempo de visualización.
+
+A veces podrás ver todas las funciones de JavaScript en la sección <head>.
+
+De todos modos, la separación de HTML y JavaScript, poniendo todo el código en un lugar, 
+siempre es un buen hábito.

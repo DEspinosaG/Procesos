@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Programa Magico de Adivinar</h1>
+<p>Escriba una palabra a continuacion : </p>
+
+<input id="numb" type="text">
+
+<button type="button" onclick="myFunction()">Adivinar</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    var x, text;
+    x = document.getElementById("numb").value;
+
+    // Comentarios
+
+    if (x == "") {
+        text = "Usted dejo el texto vacio, pero soy tan bueno que adivino que es el Profesor de Procesos de Ingenieria Software";
+    } else {
+        text = "Usted es el Profesor de Procesos de Ingenieria Software, soy adivino :)";
+    }
+    document.getElementById("demo").innerHTML = text;
+}
+</script>
+
+</body>
+</html> 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Aprende a usar typeof </p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+<p id="tex"> </p>
+
+
+<script>
+function myFunction() {
+    var a
+
+    document.getElementById("demo").innerHTML = typeof "String" + "<br>" + 
+    typeof 3.14 + "<br>" +
+    typeof false + "<br>" +
+    typeof [1,2,3,4] + "<br>" + 
+    typeof {name:'john', age:34};
+    
+    document.getElementById("tex").innerHTML= "A hora de :" + Date();
+	
+    
+	//document.write(Date());
+	
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Esta informacion queda exenta de propiedad intelectual</h1>
+<p>Escriba sus datos personales:</p>
+<p id="demo">Nombre</p>
+<input id="nombre" type="text">
+<p id="demo1">Apellido</p>
+<input id="apellido" type="text">
+<p id="demo2">Edad</p>
+<input id="edad" type="text">
+
+<button type="button" onclick="envio()">Enviar</button>
+
+<script>
+var n, a, e;
+n=document.getElementById("nombre").value;
+a=document.getElementById("apellido").value;
+e=document.getElementById("edad").value;
+var person = {
+    firstName: n,
+    lastName : a,
+    years    : e,
+    fullName : function (){return this.firstName + " " + this.lastName  }
+};
+
+
+function envio(){
+
+document.getElementById("final").innerHTML = person.fullName() + " con "+ person.years.toString() + "años.";
+
+}
+</script>
+
+<p id="final"></p>
+</body>
+</html>

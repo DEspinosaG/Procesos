@@ -1,0 +1,112 @@
+Ejemplos JavaScript 
+
+-----------------IF------------------------------
+if (time < 10) {
+    greeting = "Good morning";
+} else if (time < 20) {
+    greeting = "Good day";
+} else {
+    greeting = "Good evening";
+}
+--------------SWITCH-----------------------------
+switch (new Date().getDay()) {
+    case 6:
+        text = "Today is Saturday";
+        break;
+    case 0:
+        text = "Today is Sunday";
+        break;
+    default:
+        text = "Looking forward to the Weekend";
+} 
+-----------------FOR-----------------------------
+for (i = 0; i < 5; i++) {
+    text += "The number is " + i + "<br>";
+}
+-----------------FOR IN--------------------------
+//Recorre una colección ¿?¿?
+var person = {fname:"John", lname:"Doe", age:25};
+
+var text = "";
+var x;
+for (x in person) {
+    text += person[x];
+}
+-----------------WHILE---------------------------
+while (i < 10) {
+    text += "The number is " + i;
+    i++;
+}
+-----------------DO WHILE------------------------
+do {
+    text += "The number is " + i;
+    i++;
+}
+while (i < 10);
+------------------------------------------------------------------------------EJEMPLOS-------------------------------------
+
+EJEMPLO 1 
+
+	<!DOCTYPE html>
+	<html>
+	<body>
+
+	<h1>My First JavaScript</h1>
+
+	<p>JavaScript can change the content of an HTML element:</p>
+
+	<button type="button" onclick="myFunction()">Click Me!</button>
+
+	<p id="demo">This is a demonstration.</p>
+
+	<script>
+	function myFunction() { 
+		document.getElementById("demo").innerHTML = "Hello JavaScript!";
+		/* document es mi documento html
+			.getElementById("demo") busca a demo
+			.innerHTML sirve para cambiar el contenido */
+	}
+	</script>
+
+	</body>
+	</html>
+
+
+EJEMPLO 2 
+
+/*  Use today's weekday number to calculate weekday name: (Sunday=0, Monday=1, Tuesday=2, ...)*/
+switch (new Date().getDay()) {
+    case 0:
+        day = "Sunday";
+        break;
+    case 1:
+        day = "Monday";
+        break;
+    case 2:
+        day = "Tuesday";
+        break;
+    case 3:
+        day = "Wednesday";
+        break;
+    case 4:
+        day = "Thursday";
+        break;
+    case 5:
+        day = "Friday";
+        break;
+    case 6:
+        day = "Saturday";
+        break;
+} 
+
+EJEMPLO 3 
+
+
+
+
+EJEMPLO 4 
+
+
+
+
+EJEMPLO 5 

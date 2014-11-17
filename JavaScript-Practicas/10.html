@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>La Filosofia del Proceso Software</h1>
+<p>Escriba su grado de satisfacion con esta filosofia en un rango del 0-5:</p><button type="ayuda" onclick="ayuda()">Ayuda</button>
+<p id="ayu"></p>
+
+<p id="grado">Grado Satisfacion</p>
+<input id="gr" type="text">
+
+<button type="button" onclick="envio()">Enviar</button>
+
+<script>
+var ano = new Date().getFullYear;
+var e=document.getElementById("gr").value;
+var i;
+
+function ayuda(){
+    document.getElementById("ayu").innerHTML = "(0=Ninguna; 1=Muy poca; 2=Poca; 3=Normal; 4=Mucha; 5=Total)";
+}
+
+function envio(){
+
+    do{  //preguntar como hacer pulsar boton varias veces. 
+    switch (parseInt(e)) {
+    case 0:
+        document.getElementById("final").innerHTML = "No merece la pena ni perder el tiempo en usted... esta claro que usted no es Ingeniero Software.";
+        document.getElementById("msn").innerHTML = "El proceso te guia hacia una vida mejor.";
+        break;
+    case 1:
+        document.getElementById("final").innerHTML = "En el año "+ ano + " mas del 90% de los proyectos software fueron dirigidos por procesos, el 99% de estos resultaron existosos.";
+        document.getElementById("msn").innerHTML = "El proceso te guia hacia una vida mejor.";
+        break;
+    case 2:
+        document.getElementById("final").innerHTML = "No vea el vaso medio vacio, sino medio lleno.";
+        document.getElementById("msn").innerHTML = "El proceso te guia hacia una vida mejor.";
+        break;
+    case 3:
+        document.getElementById("final").innerHTML = "El proceso te guia hacia una vida mejor. Recuerdalo!!";
+        document.getElementById("msn").innerHTML = "Recuerdalo !!!";
+        break;
+    case 4:
+        document.getElementById("final").innerHTML = "Usted es un tipo sabio, con un conocimiento casi perfecto sobre el proceso.";
+        document.getElementById("msn").innerHTML = "El proceso te guia hacia una vida mejor.";
+        break;
+    case 5:
+        document.getElementById("final").innerHTML = "Dentro de " +
+        Math.floor((Math.random() * 11)) + "meses le tocara la loteria. Estamos tan seguro del proceso, que podemos hablar de otras cosas ;) .";
+        document.getElementById("msn").innerHTML = "El proceso te guia hacia una vida mejor.";
+        break;
+    default:
+        document.getElementById("final").innerHTML = "Que raro, existio un problema. Puede que se equivocara al introducir los datos. Sorry !!";
+        document.getElementById("msn").innerHTML = "El proceso te guia hacia una vida mejor.";
+        break;
+    }
+    i++;
+}while (i<6);
+}
+
+</script>
+
+<p id="final"></p>
+<h2 id="msn"></h2>
+</body>
+</html>
