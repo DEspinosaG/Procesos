@@ -99,7 +99,7 @@ function Tablero(){
 		this.asignarCasilla(19,new Posada());
 		this.asignarCasilla(26,new Dados());
 		this.asignarCasilla(53,new Dados());
-		this.asignarCasilla(31, new Pozo());
+		this.asignarCasilla(31, new Pozo(31));
 		this.asignarCasilla(42,new Laberinto());
 		this.asignarCasilla(52,new Carcel());
 		this.asignarCasilla(58,new Calavera());	
@@ -161,11 +161,20 @@ function Puente(otroPuente){
 	}
 }
 
-function Pozo(){
+function Pozo(miposcion){
 	this.titulo="Pozo";
+	this.index;
+	this.jugadores=ficha.jugador.juego.coleccionJugadores;
 	this.cae=fucntion(ficha){
-		console.log("Al fondo del pozo");
-		//Como compruebo donde esta el otro jugador ¿?
+		//Si vas primero te comes 3 turnos, si alguien va delante de ti te comes 2.
+		ficha.jugador.descanso=3;
+		console.log("Al fondo del pozo, 3 turnos descansando.");
+		for	(index = 0; index < this.jugadores.length; index++) {
+    			if (this.jugadores[index].ficha.casilla.posicion>miposcion){
+    				ficha.jugador.descanso=2;
+    				console.log("El pozo parece mas pequeño de lo que pensasbas, sales 1 turno antes.");
+    			}
+		} 
 	}
 }
 
@@ -181,13 +190,10 @@ function Oca(otraOca){
 
 function Posada(){
 	this.titulo="Posada";
+	this.contador=2;
 	this.cae=function(ficha){
-		console.log("Caíste en la Posada");
-		if ((ficha.jugador.descanso)>0){
-			ficha.mover(ficha.getPosicion()+1);
-			ficha.jugador.descanso=4;
-		}
-		ficha.jugador.descanso=ficha.jugador.descanso-1;
+		console.log("Caíste en la Posada, 2 turnos de descanso.");
+		ficha.jugador.descanso=this.contador;
 		ficha.cambiarTurno();
 	}
 }
@@ -196,7 +202,7 @@ function Dados(){
 	this.titulo="Dados";
 	this.dibujo=Math.floor((Math.random() * 6) + 1);
 	this.cae=function(ficha){
-		console.log("Avanzo lo que me dice el dado dibujado");
+		console.log("Avanzo lo que me dice el dado dibujado "+this.dibujo);
 		ficha.moverSinCaer(ficha.getPosicion()+this.dibujo);
 		ficha.cambiarTurno();
 	}
@@ -204,22 +210,19 @@ function Dados(){
 
 function Laberinto(){
 	this.titulo="Laberinto";
-	this.salida=3;
 	this.cae=function(ficha){
 		console.log("Caíste en el Laberinto");
-		//Como compruebo el dado que saco el jugador en esta tirada¿?
+		ficha.jugador.laberinto=true;
+		ficha.cambiarTurno();
 	}
 }
 
 function Carcel(){
 	this.titulo="Carcel";
-	this.contador=1;
+	this.contador=3;
 	this.cae=function(ficha){
-		console.log("Caíste en la Cárcel");
-		if ((this.contador%4)==0){
-			ficha.moverSinCaer(ficha.getPosicion()+1);
-		}
-		this.contador=this.contador+1;
+		console.log("Caíste en la Cárcel, 3 turnos arrestado.");
+		ficha.jugador.descanso=this.contador;
 		ficha.cambiarTurno();
 	}
 }
@@ -275,9 +278,27 @@ function Ficha(color){
 
 function MeToca(){
 	this.lanzar=function(jugador){
-		var numero=Math.round(Math.random()*5+1);
-		console.log("Tirada: "+numero);
-		jugador.ficha.mover(numero);
+		if (jugador.descanso>0){
+			console.log("El jugador descansa, no tira dado.");
+			jugador.descanso=jugador.descanso-1;
+			jugador.cambiarTurno;
+		}
+		else if (jugador.laberinto==true){
+			var numero=Math.round(Math.random()*5+1);
+			if (numero>3){
+				console.log("Tirada de Dado: "+numero+". Sales del Laberinto");
+				jugador.ficha.mover(numero);
+				jugador.laberinto=false;
+			}
+			else {console.log("Tirada de Dado: "+numero+".No sales, no saco mas de 3."}
+			
+		}
+		else{
+			var numero=Math.round(Math.random()*5+1);
+			console.log("Tirada: "+numero);
+			jugador.ficha.mover(numero);
+		}
+		
 	}
 }
 
@@ -291,7 +312,8 @@ function Jugador(nombre,juego){
 	this.nombre=nombre;
 	this.ficha=undefined;
 	this.juego=juego;
-	this.descanso=3;
+	this.descanso=0;
+	this.laberinto=false;
 	this.turno=new NoMeToca();
 
 	this.asignarFicha=function(){
