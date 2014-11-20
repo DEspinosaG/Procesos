@@ -67,11 +67,17 @@ function FaseJugar(juego){
 }
 
 function FaseFIN(juego, jugador){
-	this.juego=juego;
+		this.juego=juego;
 		this.ganador=jugador;
+		this.asignarFicha=function(jugador){
+			console.log("Fin del Juego. Ganador "+this.ganador.nombre);
+		}
+		this.lanzar=function(jugador){
+			console.log("Fin del Juego. Ganador "+this.ganador.nombre);
+		}
 		this.verGanador=function(jugador){
 			console.log("Ganador "+this.ganador.nombre);
-	}
+		}
 }
 
 function Tablero(){
@@ -175,13 +181,14 @@ function Oca(otraOca){
 
 function Posada(){
 	this.titulo="Posada";
-	this.contador=1;
 	this.cae=function(ficha){
 		console.log("Caíste en la Posada");
-		if ((this.contador%3)==0){
+		if ((ficha.jugador.descanso)>0){
 			ficha.mover(ficha.getPosicion()+1);
+			ficha.jugador.descanso=4;
 		}
-		this.contador=this.contador+1;
+		ficha.jugador.descanso=ficha.jugador.descanso-1;
+		ficha.cambiarTurno();
 	}
 }
 
@@ -189,9 +196,9 @@ function Dados(){
 	this.titulo="Dados";
 	this.dibujo=Math.floor((Math.random() * 6) + 1);
 	this.cae=function(ficha){
-		//mover la ficha al otro puente y decirle que tire de nuevo
-		console.log("Avanzo lo que me dice el dado");
+		console.log("Avanzo lo que me dice el dado dibujado");
 		ficha.moverSinCaer(ficha.getPosicion()+this.dibujo);
+		ficha.cambiarTurno();
 	}
 }
 
@@ -210,9 +217,10 @@ function Carcel(){
 	this.cae=function(ficha){
 		console.log("Caíste en la Cárcel");
 		if ((this.contador%4)==0){
-			ficha.mover(ficha.getPosicion()+1);
+			ficha.moverSinCaer(ficha.getPosicion()+1);
 		}
 		this.contador=this.contador+1;
+		ficha.cambiarTurno();
 	}
 }
 
@@ -220,7 +228,8 @@ function Calavera(){
 	this.titulo="Calavera";
 	this.cae=function(ficha){
 		console.log("Caíste en la Calavera");
-		ficha.mover(1);
+		ficha.moverSinCaer(1);
+		ficha.cambiarTurno();
 	}
 }
 
@@ -282,6 +291,7 @@ function Jugador(nombre,juego){
 	this.nombre=nombre;
 	this.ficha=undefined;
 	this.juego=juego;
+	this.descanso=3;
 	this.turno=new NoMeToca();
 
 	this.asignarFicha=function(){
