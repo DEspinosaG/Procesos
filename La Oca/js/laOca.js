@@ -38,7 +38,9 @@ function LaOca(tablero, coleccionFichas,numeroJugadores){
 	this.iniciarJuego=function(){
 		this.fase=new FaseInicio(this);
 	}
-
+	this.terminarJuego=function(ganador){
+		this.fase=new FaseFIN(this, ganador);
+	}
 	this.iniciarJuego();
 }
 
@@ -74,9 +76,6 @@ function FaseFIN(juego, jugador){
 		}
 		this.lanzar=function(jugador){
 			console.log("Fin del Juego. Ganador "+this.ganador.nombre);
-		}
-		this.verGanador=function(jugador){
-			console.log("Ganador "+this.ganador.nombre);
 		}
 }
 
@@ -166,16 +165,22 @@ function Pozo(miposcion){
 	this.index;
 	this.jugadores=ficha.jugador.juego.coleccionJugadores;
 	this.cae=fucntion(ficha){
-		//Si vas primero te comes 3 turnos, si alguien va delante de ti te comes 2.
-		ficha.jugador.descanso=3;
-		console.log("Al fondo del pozo, 3 turnos descansando.");
-		for	(index = 0; index < this.jugadores.length; index++) {
-    			if (this.jugadores[index].ficha.casilla.posicion>miposcion){
-    				ficha.jugador.descanso=2;
-    				console.log("El pozo parece mas pequeño de lo que pensasbas, sales 1 turno antes.");
-    			}
-		} 
+		ficha.jugador.descanso=new voyPrimero(this.jugadores);
+		console.log("Al fondo del pozo,"+ficha.jugador.descanso+" turnos descansando.");
+		ficha.cambiarTurno();
 	}
+}
+//funcion auxiliar para pozo. O otras casillas en el futuro.
+//Si vas primero te comes 3 turnos, si alguien va delante de ti te comes 2.
+function voyPrimero(coleccionJugando){
+	this.descanso=3;
+	this.jugadores=coleccionJugando
+	for	(index = 0; index < this.jugadores.length; index++) {
+    			if (this.jugadores[index].ficha.casilla.posicion>miposcion){
+    				this.descanso=2;
+    			}
+		}
+	return this.descanso; 
 }
 
 
@@ -238,10 +243,10 @@ function Calavera(){
 
 function Final(){
 	this.titulo="Final";
+	this.ganador=ficha.jugador.nombre;
 	this.cae=function(ficha){
-
-		console.log("Ganaste");
-		ficha.jugador.juego.fase=new FaseFIN(ficha.jugador.juego, ficha.jugador);
+		console.log("Ganaste "+this.ganador);
+		ficha.terminarJuego();
 	}
 
 }
@@ -273,6 +278,9 @@ function Ficha(color){
 	}
 	this.cambiarTurno=function(){
 		this.jugador.cambiarTurno();
+	}
+	this.terminarJuego=function(ganador){
+		this.jugador.terminarJuego();
 	}
 }
 
@@ -324,5 +332,8 @@ function Jugador(nombre,juego){
 	}
 	this.cambiarTurno=function(){
 		this.juego.cambiarTurno(this);
+	}
+	this.terminarJuego=function(){
+		this.juego.terminarJuego(this);
 	}
 }
