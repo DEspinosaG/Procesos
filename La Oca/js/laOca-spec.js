@@ -9,6 +9,7 @@ describe("El juego de la Oca...",function(){
 		beforeEach(function(){
 			this.tablero = new Tablero();
 			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+			this.coleccionJugadores=[new Jugador("Uno"),new Jugador("Dos"),new Jugador("Tres")];
 			this.juego = new LaOca(this.tablero, this.coleccionFichas);
 		});
 
@@ -33,9 +34,11 @@ describe("El juego de la Oca...",function(){
 		});
 
 		it("...inicialmente, todas las fichas están libres",function(){
-			var todasLibres=_.find(this.juego.coleccionFichas,function(f){
-				return f.libre==false});
-			expect(this.todasLibres).toBeUndefined();
+			var a = 0;
+			for (i=0;i<this.juego.coleccionFichas.length;i++) {
+				if  (this.juego.coleccionFichas[i].libre) a++;
+			}
+			expect(a).toEqual(this.juego.coleccionFichas.length);
 		});
 
 		it("...el juego tiene una coleccion de jugadores",function(){
@@ -43,12 +46,14 @@ describe("El juego de la Oca...",function(){
 		});
 
 		it("...el juego permite crear un jugador llamado Pepe",function(){
-			this.jugador=new Jugador("Pepe",this.juego);
-			expect(this.jugador.nombre).toMatch("Pepe");
+			this.jugador=new Jugador("Juan",this.juego);
+			expect(this.jugador.nombre).toMatch("Juan");
 		});
 
-		xit("...el juego permite asignar una ficha libre a Pepe",function(){
-
+		it("...el juego permite asignar una ficha libre a Juan",function(){
+			this.jugador=new Jugador("Juan",this.juego);
+			this.jugador.asignarFicha();
+			expect(this.jugador.ficha).toBeDefined();
 		});
 	});
 
@@ -106,6 +111,65 @@ describe("El juego de la Oca...",function(){
 			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
 			this.juego = new LaOca(this.tablero, this.coleccionFichas);
 		});
-		//No se ahora mismo como lo quereis hacer..
+		it("...la Oca 5 te lleva hasta la casilla 9",function(){
+			expect(this.tablero.casillas[5].tema.otraOca).toEqual(9);
+		});
+		it("...la Oca 9 te lleva hasta la casilla 14",function(){
+			expect(this.tablero.casillas[9].tema.otraOca).toEqual(14);
+		});
+	})
+
+	describe("Comprobar el funcionamiento del tema Puente",function(){
+		beforeEach(function(){
+			this.tablero = new Tablero();
+			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+			this.juego = new LaOca(this.tablero, this.coleccionFichas);
+		});
+		it("...el Puente 6 te lleva hasta la casilla 12",function(){
+			expect(this.tablero.casillas[6].tema.otroPuente).toEqual(12);
+		});
+		it("...el Puente 12 te lleva hasta la casilla 6",function(){
+			expect(this.tablero.casillas[12].tema.otroPuente).toEqual(6);
+		});
+	})
+
+	describe("Comprobar el funcionamiento del tema Posada",function(){
+		beforeEach(function(){
+			this.tablero = new Tablero();
+			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+			this.juego = new LaOca(this.tablero, this.coleccionFichas);
+		});
+		it("...la Posada 19 te hace descansar 2 turnos",function(){
+			expect(this.tablero.casillas[19].tema.contador).toEqual(2);
+		});	
+	})
+
+	describe("Comprobar el funcionamiento del tema Dados",function(){
+		beforeEach(function(){
+			this.tablero = new Tablero();
+			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+			this.juego = new LaOca(this.tablero, this.coleccionFichas);
+		});
+		it("...Dados 26 te suma las casillas que marque el dibujo(aleatorio tipo jumanji) con limite 6.",function(){
+			var  limite= this.tablero.casillas[26].tema.limite;
+			expect(6).toEqual(this.tablero.casillas[26].tema.limite);
+			for (i=0;i<limite;i++) {
+				if  (this.tablero.casillas[26].tema.dibujo==i) {
+					expect(i).toEqual(this.tablero.casillas[26].tema.dibujo);
+				}
+			}
+			
+		});
+		it("...Dados 53 te suma las casillas que marque el dibujo(aleatorio tipo jumanji) con limite 6.",function(){
+			var  limite= this.tablero.casillas[53].tema.limite;
+			expect(6).toEqual(this.tablero.casillas[53].tema.limite);
+			for (i=0;i<limite;i++) {
+				if  (this.tablero.casillas[53].tema.dibujo==i) {
+					expect(i).toEqual(this.tablero.casillas[53].tema.dibujo);
+				}
+			}
+			
+		});
+
 	})
 })

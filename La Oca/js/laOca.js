@@ -165,14 +165,14 @@ function Pozo(miposcion){
 	this.index;
 	this.jugadores=ficha.jugador.juego.coleccionJugadores;
 	this.cae=fucntion(ficha){
-		ficha.jugador.descanso=new voyPrimero(this.jugadores);
+		ficha.jugador.descanso=new voyPrimero(this.jugadores, miposcion);
 		console.log("Al fondo del pozo,"+ficha.jugador.descanso+" turnos descansando.");
 		ficha.cambiarTurno();
 	}
 }
 //funcion auxiliar para pozo. O otras casillas en el futuro.
 //Si vas primero te comes 3 turnos, si alguien va delante de ti te comes 2.
-function voyPrimero(coleccionJugando){
+function voyPrimero(coleccionJugando, miposcion){
 	this.descanso=3;
 	this.jugadores=coleccionJugando
 	for	(index = 0; index < this.jugadores.length; index++) {
@@ -205,7 +205,8 @@ function Posada(){
 
 function Dados(){
 	this.titulo="Dados";
-	this.dibujo=Math.floor((Math.random() * 6) + 1);
+	this.limite=6;
+	this.dibujo=Math.floor((Math.random() * this.limite) + 1);
 	this.cae=function(ficha){
 		console.log("Avanzo lo que me dice el dado dibujado "+this.dibujo);
 		ficha.moverSinCaer(ficha.getPosicion()+this.dibujo);
