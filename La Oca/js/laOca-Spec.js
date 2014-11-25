@@ -180,9 +180,22 @@ describe("El juego de la Oca...",function(){
 			this.tablero = new Tablero();
 			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
 			this.juego = new LaOca(this.tablero, this.coleccionFichas);
+			this.j1=new Jugador("Juan",this.juego);
+			this.j1.asignarFicha();
+			this.j2=new Jugador("Juanjo",this.juego);
+			this.j2.asignarFicha();
 		});
-		it("...Pozo 31 te hace descansar 3 turnos si vas primero, y 2 si no lo vas",function(){
+		it("...Pozo 31 te hace descansar 3 por ir primero",function(){
 			//Pendiente .... 
+			this.j1.ficha.mover(30);
+			//expect(this.j1.ficha.casilla.posicion).toEqual(31);
+			expect(this.j1.descanso).toEqual(3);
+		});	
+		it("...Pozo 31 te hace descansar 2 turnos si no vas primero",function(){
+			//Pendiente .... 
+			this.j2.ficha.mover(36);
+			this.j1.ficha.mover(30);
+			expect(this.j1.descanso).toEqual(2);
 		});	
 	})
 
@@ -191,10 +204,13 @@ describe("El juego de la Oca...",function(){
 			this.tablero = new Tablero();
 			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
 			this.juego = new LaOca(this.tablero, this.coleccionFichas);
+			this.j1=new Jugador("Juan",this.juego);
+			this.j1.asignarFicha();
 		});
-		it("...Laberinto 42 te hace entrar en el laberinto",function(){
-			//expect(this.tablero.casillas[42].tema......).toEqual(2);
-			//Pendiente ...
+		it("...Laberinto 42 te hace entrar en el laberinto",function(){	
+			this.j1.ficha.mover(41); //lo muevo a la casilla laberinto
+			//expect(this.j1.ficha.casilla.posicion).toEqual(42);
+			expect(this.j1.laberinto).toEqual(true);
 		});	
 	})
 

@@ -163,27 +163,26 @@ function Puente(otroPuente){
 	}
 }
 
+//Pozo. Si vas primero te comes 3 turnos, si alguien va delante de ti te comes 2.
 function Pozo(miposcion){
 	this.titulo="Pozo";
 	this.cae=function(ficha){
-		 ficha.jugador.descanso=new voyPrimero(ficha.jugador.juego.coleccionJugadores, miposcion);
+		var coleccionJugando=ficha.jugador.juego.coleccionJugadores;
+		 	this.descanso=3;
+			this.index;
+			this.jugadores=coleccionJugando;
+				for	(index = 0; index < this.jugadores.length; index++) {
+    				if (this.jugadores[index].ficha.casilla.posicion>miposcion){
+    					this.descanso=2;
+    				}
+				}
+		 ficha.jugador.descanso=this.descanso; 
+		 
 		 console.log("Al fondo del pozo,"+ficha.jugador.descanso+" turnos descansando.");
 		 ficha.cambiarTurno();
 	}
 }
-//funcion auxiliar para pozo. O otras casillas en el futuro.
-//Si vas primero te comes 3 turnos, si alguien va delante de ti te comes 2.
-function voyPrimero(coleccionJugando, miposcion){
-	this.descanso=3;
-	this.index;
-	this.jugadores=coleccionJugando
-	for	(index = 0; index < this.jugadores.length; index++) {
-    			if (this.jugadores[index].ficha.casilla.posicion>miposcion){
-    				this.descanso=2;
-    			}
-		}
-	return this.descanso; 
-}
+
 
 
 function Oca(otraOca){
