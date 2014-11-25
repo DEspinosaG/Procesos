@@ -203,7 +203,7 @@ describe("El juego de la Oca...",function(){
 			this.juego = new LaOca(this.tablero, this.coleccionFichas);
 		});
 		it("...Carcel 52 te hace descansar 3 turnos",function(){
-			expect(this.tablero.casillas[3].tema.contador).toEqual(3);
+			expect(this.tablero.casillas[52].tema.contador).toEqual(3);
 		});	
 	})
 

@@ -162,26 +162,26 @@ function Puente(otroPuente){
 
 function Pozo(miposcion){
 	this.titulo="Pozo";
-	this.jugadores=ficha.jugador.juego.coleccionJugadores;
+	//this.jugadores=ficha.jugador.juego.coleccionJugadores;
 	this.cae=function(ficha){
-		ficha.jugador.descanso=new voyPrimero(this.jugadores, miposcion);
-		console.log("Al fondo del pozo,"+ficha.jugador.descanso+" turnos descansando.");
-		ficha.cambiarTurno();
+		// ficha.jugador.descanso=new voyPrimero(this.jugadores, miposcion);
+		// console.log("Al fondo del pozo,"+ficha.jugador.descanso+" turnos descansando.");
+		 ficha.cambiarTurno();
 	}
 }
 //funcion auxiliar para pozo. O otras casillas en el futuro.
 //Si vas primero te comes 3 turnos, si alguien va delante de ti te comes 2.
-function voyPrimero(coleccionJugando, miposcion){
-	this.descanso=3;
-	this.index;
-	this.jugadores=coleccionJugando
-	for	(index = 0; index < this.jugadores.length; index++) {
-    			if (this.jugadores[index].ficha.casilla.posicion>miposcion){
-    				this.descanso=2;
-    			}
-		}
-	return this.descanso; 
-}
+// function voyPrimero(coleccionJugando, miposcion){
+	// this.descanso=3;
+	// this.index;
+	// this.jugadores=coleccionJugando
+	// for	(index = 0; index < this.jugadores.length; index++) {
+    			// if (this.jugadores[index].ficha.casilla.posicion>miposcion){
+    				// this.descanso=2;
+    			// }
+		// }
+	// return this.descanso; 
+// }
 
 
 function Oca(otraOca){
@@ -245,9 +245,8 @@ function Calavera(){
 
 function Final(){
 	this.titulo="Final";
-	this.ganador=ficha.jugador.nombre;
 	this.cae=function(ficha){
-		console.log("Ganaste "+this.ganador);
+		console.log("Ganaste "+ficha.jugador.nombre);
 		ficha.terminarJuego();
 	}
 
