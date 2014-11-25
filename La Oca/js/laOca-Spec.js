@@ -172,4 +172,49 @@ describe("El juego de la Oca...",function(){
 		});
 
 	})
+
+	describe("Comprobar el funcionamiento del tema Pozo",function(){
+		beforeEach(function(){
+			this.tablero = new Tablero();
+			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+			this.juego = new LaOca(this.tablero, this.coleccionFichas);
+		});
+		it("...Pozo 31 te hace descansar 3 turnos si vas primero, y 2 si no lo vas",function(){
+			//Pendiente .... 
+		});	
+	})
+
+	describe("Comprobar el funcionamiento del tema Laberinto",function(){
+		beforeEach(function(){
+			this.tablero = new Tablero();
+			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+			this.juego = new LaOca(this.tablero, this.coleccionFichas);
+		});
+		it("...Laberinto 42 te hace entrar en el laberinto",function(){
+			//expect(this.tablero.casillas[42].tema......).toEqual(2);
+			//Pendiente ...
+		});	
+	})
+
+	describe("Comprobar el funcionamiento del tema Carcel",function(){
+		beforeEach(function(){
+			this.tablero = new Tablero();
+			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+			this.juego = new LaOca(this.tablero, this.coleccionFichas);
+		});
+		it("...Carcel 52 te hace descansar 3 turnos",function(){
+			expect(this.tablero.casillas[3].tema.contador).toEqual(3);
+		});	
+	})
+
+	describe("Comprobar el funcionamiento del tema Calavera",function(){
+		beforeEach(function(){
+			this.tablero = new Tablero();
+			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+			this.juego = new LaOca(this.tablero, this.coleccionFichas);
+		});
+		it("...Calavera 58 te hace volver a la posicion 1",function(){
+			expect(this.tablero.casillas[58].tema.principio).toEqual(1);
+		});	
+	})
 })

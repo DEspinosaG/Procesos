@@ -162,9 +162,8 @@ function Puente(otroPuente){
 
 function Pozo(miposcion){
 	this.titulo="Pozo";
-	this.index;
 	this.jugadores=ficha.jugador.juego.coleccionJugadores;
-	this.cae=fucntion(ficha){
+	this.cae=function(ficha){
 		ficha.jugador.descanso=new voyPrimero(this.jugadores, miposcion);
 		console.log("Al fondo del pozo,"+ficha.jugador.descanso+" turnos descansando.");
 		ficha.cambiarTurno();
@@ -174,6 +173,7 @@ function Pozo(miposcion){
 //Si vas primero te comes 3 turnos, si alguien va delante de ti te comes 2.
 function voyPrimero(coleccionJugando, miposcion){
 	this.descanso=3;
+	this.index;
 	this.jugadores=coleccionJugando
 	for	(index = 0; index < this.jugadores.length; index++) {
     			if (this.jugadores[index].ficha.casilla.posicion>miposcion){
@@ -235,9 +235,10 @@ function Carcel(){
 
 function Calavera(){
 	this.titulo="Calavera";
+	this.principio=1;
 	this.cae=function(ficha){
 		console.log("Caíste en la Calavera");
-		ficha.moverSinCaer(1);
+		ficha.moverSinCaer(this.principio);
 		ficha.cambiarTurno();
 	}
 }
@@ -299,7 +300,7 @@ function MeToca(){
 				jugador.ficha.mover(numero);
 				jugador.laberinto=false;
 			}
-			else {console.log("Tirada de Dado: "+numero+".No sales, no saco mas de 3."}
+			else {console.log("Tirada de Dado: "+numero+".No sales, no saco mas de 3.");}
 			
 		}
 		else{
