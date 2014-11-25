@@ -45,6 +45,7 @@ function LaOca(tablero, coleccionFichas,numeroJugadores){
 }
 
 function FaseInicio(juego){
+	this.titulo="Inicio";
 	this.juego=juego;
 	this.asignarFicha=function(jugador){
 		this.juego.asignarFicha(jugador);
@@ -58,6 +59,7 @@ function FaseInicio(juego){
 }
 
 function FaseJugar(juego){
+	this.titulo="Jugando";
 	this.juego=juego;
 		this.asignarFicha=function(jugador){
 			console.log("Ahora no se puede escoger ficha");
@@ -69,6 +71,7 @@ function FaseJugar(juego){
 }
 
 function FaseFIN(juego, jugador){
+		this.titulo="Fin";
 		this.juego=juego;
 		this.ganador=jugador;
 		this.asignarFicha=function(jugador){
@@ -279,7 +282,7 @@ function Ficha(color){
 	this.cambiarTurno=function(){
 		this.jugador.cambiarTurno();
 	}
-	this.terminarJuego=function(ganador){
+	this.terminarJuego=function(){
 		this.jugador.terminarJuego();
 	}
 }

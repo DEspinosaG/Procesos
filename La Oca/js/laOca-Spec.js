@@ -56,7 +56,8 @@ describe("El juego de la Oca...",function(){
 			expect(this.jugador.ficha).toBeDefined();
 		});
 	});
-
+	
+	//Compruebo el tablero tiene la asignacion correcta
 	describe("Comprobar el tablero...",function(){
 		beforeEach(function(){
 			this.tablero = new Tablero();
@@ -104,7 +105,8 @@ describe("El juego de la Oca...",function(){
 			expect(this.tablero.casillas[63].tema.titulo).toEqual("Final");
 		});
 	});
-
+	
+	//Compruebo el funcionamiento de los diferentes temas
 	describe("Comprobar el funcionamiento del tema Oca",function(){
 		beforeEach(function(){
 			this.tablero = new Tablero();
@@ -217,4 +219,76 @@ describe("El juego de la Oca...",function(){
 			expect(this.tablero.casillas[58].tema.principio).toEqual(1);
 		});	
 	})
+
+	//Comprobar las fases del juego 
+	describe("Comprobar que las Fases funcionan bien.",function(){
+		beforeEach(function(){
+			this.tablero = new Tablero();
+			this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+			this.juego = new LaOca(this.tablero,this.coleccionFichas,2);
+			this.j1=new Jugador("Juan",this.juego);
+			this.j1.asignarFicha();
+		});
+		it("... el juego esta en fase de Inicio al no tener 2 jugadores",function(){
+			expect(this.juego.fase.titulo).toEqual("Inicio");
+		});
+		it("... el juego esta en fase de Jugar al tener 2 jugadores",function(){
+			this.j2 = new Jugador("Juanjo",this.juego);
+			this.j2.asignarFicha();
+			expect(this.juego.fase.titulo).toEqual("Jugando");
+		});
+		it("... el juego esta en fase de Final porque el jugador llego a la casilla Final",function(){
+			this.j2 = new Jugador("Luis",this.juego);
+			this.j2.asignarFicha();
+			this.j2.ficha.terminarJuego(); //Simulo la caida en la casilla Final, llamando a la misma funcion que llama ella. 
+			expect(this.juego.fase.titulo).toEqual("Fin");
+		});
+
+	});
+	
+	//Compruebo el funcionamiento de los turnos
+	describe("Comprobar el funcionamiento de los turnos",function(){
+			beforeEach(function(){
+				this.tablero = new Tablero();
+				this.coleccionFichas=[new Ficha("roja"),new Ficha("azul"),new Ficha("verde")];
+				this.juego = new LaOca(this.tablero,this.coleccionFichas,2);
+				this.j1=new Jugador("Juan",this.juego);
+				this.j1.asignarFicha();
+				this.j2 = new Jugador("Juanjo",this.juego);
+				this.j2.asignarFicha();
+				this.juego.setTurno(this.j1);
+			});
+
+			it("... el jugador 1 tiene el turno.",function(){
+				expect(this.juego.turno.nombre).toEqual(this.j1.nombre);
+			});
+
+			it("... el jugador 2 no tiene el turno.",function(){
+				expect(this.juego.turno.nombre).not.toEqual(this.j2.nombre);
+			});
+
+			it("... el jugador uno pierde el turno, le toca al jugador dos.",function(){
+				this.j1.ficha.mover(1); //lo muevo a una casilla normal para que cambie el turno.
+				//expect(this.j1.ficha.casilla.posicion).toEqual(2);
+				expect(this.juego.turno.nombre).toEqual(this.j2.nombre);
+			});
+
+			it("... el jugador dos pierde el turno, le toca al jugador uno.",function(){
+				this.j1.ficha.mover(1);
+				this.j2.ficha.mover(1);
+				expect(this.juego.turno.nombre).toEqual(this.j1.nombre);
+			});
+			it("... el jugador uno cae en casilla especial y no cambia el turno",function(){
+				this.j1.ficha.mover(4);//le hago caer en una casilla especial y no pierdo el turno 
+				//expect(this.j1.ficha.casilla.posicion).toEqual(9);
+				expect(this.juego.turno.nombre).toEqual(this.j1.nombre);
+			});
+			it("...el jugador dos cae en casilla especial y no cambia el turno",function(){
+				this.j1.ficha.mover(1);
+				this.j2.ficha.mover(4);
+				//expect(this.j2.ficha.casilla.posicion).toEqual(9);
+				expect(this.juego.turno.nombre).toEqual(this.j2.nombre);
+			});
+
+		});
 })
