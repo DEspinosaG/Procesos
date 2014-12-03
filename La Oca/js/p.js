@@ -143,8 +143,62 @@ function empezar(){
       $('#titulo').text("");
       $('#titulo').append('Jugando a la OCA-DEG con '+numJugadores+' Jugadores');
     
+       $('#j1').append('<p>Jugador 1 </p><button id="lanza1">Lanzar Dado</button>');
+       $('#j2').append('<p>Jugador 2 </p><button id="lanza2">Lanzar Dado</button>');
+       $('#j3').append('<p>Jugador 3 </p><button id="lanza3">Lanzar Dado</button>');
+       $('#j4').append('<p>Jugador 4 </p><button id="lanza4">Lanzar Dado</button>');
 
+
+       $('#j1').hide();
+       $('#j2').hide();
+       $('#j3').hide();
+       $('#j4').hide();
+
+       game.setTurno(j1);
+        
+        $('#j1').show();
+        
+       $('#lanza1').on('click',function(){     
+       
+        if (game.turno.nombre==j1.nombre){
+            j1.lanzar();
+            estadoJuego();
+        }
+        else
+        {
+            $('#j1').hide();
+            $('#j2').show();
+        }
+       })
+
+       $('#lanza2').on('click',function(){     
+       
+        if (game.turno.nombre==j2.nombre){
+            j2.lanzar();
+            estadoJuego();
+        }
+        else
+        {
+            $('#j2').hide();
+            $('#j1').show();
+        }
+       })
+
+        }
+
+       function estadoJuego(){
+       this.turno=this.game.turno.nombre;
+       this.posicion1=this.j1.ficha.casilla.posicion;
+       this.posicion2=this.j2.ficha.casilla.posicion;
+      // this.actualizarJuego=function(){
+       $('#Textos').empty();
+       $('#Textos').append('<p id="turno">Es el turno de: '+this.turno+'</p>');
+       $('#Textos').append('<p id="estado1">El jugador uno está en: '+this.posicion1+'</p>');
+       $('#Textos').append('<p id="estado2">El jugador dos está en: '+this.posicion2+'</p>');
+      // }}
     }
+
+    
 
   
 
